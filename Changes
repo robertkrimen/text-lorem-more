@@ -1,5 +1,9 @@
+0.11 2006-10-2
+   + Set up 'Makefile.PL' in addition to 'Build.PL'
+   + Minor documentation tweak.
 0.10 2006-10-1
-   + Some documentation tweaks
+   + Added Parse::RecDescent prerequisite.
+   + Some documentation tweaks.
 0.09 2006-10-1
    + Vastly improved documentation (well, from what it was before, at least).
 0.08 2006-10-1

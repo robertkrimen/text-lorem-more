@@ -1,18 +1,21 @@
 ---
 name: Text-Lorem-More
-version: 0.09
+version: 0.11
 author:
   - Robert Krimen <robertkrimen@gmail.com>
 abstract: Generate formatted nonsense using random Latin words.
 license: perl
 resources:
   license: http://dev.perl.org/licenses/
+requires:
+  Carp: 0
+  Parse::RecDescent: 0
 build_requires:
   Test::More: 0
 provides:
   Text::Lorem::More:
     file: lib/Text/Lorem/More.pm
-    version: 0.09
+    version: 0.11
   Text::Lorem::More::Source:
     file: lib/Text/Lorem/More/Source.pm
 generated_by: Module::Build version 0.28

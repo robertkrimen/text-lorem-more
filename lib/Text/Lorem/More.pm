@@ -9,11 +9,11 @@ Text::Lorem::More - Generate formatted nonsense using random Latin words.
 
 =head1 VERSION
 
-Version 0.10
+Version 0.11
 
 =cut
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 use Text::Lorem::More::Source;
 use Carp;
@@ -225,7 +225,7 @@ But this will:
 
 	prefix+{name}suffix
 
-If you need to include a '+' in your pattern, you'll have to use C<parse> instead.
+If you need to include a '+' in your pattern, you'll have to use C<process> instead.
 
 =cut
 sub generate {
@@ -251,7 +251,7 @@ Please see C<generate> for more information.
 =cut
 sub process {
 	my $self = shift;
-	# _parse may recurse any number of times.
+	# _process may recurse any number of times.
 	# the RECURSION counter makes sure it doesn't get out of hand.
 	local $Text::Lorem::More::RECURSION = 0;
 	return $self->_process(@_);

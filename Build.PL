@@ -10,6 +10,10 @@ my $builder = Module::Build->new(
     build_requires => {
         'Test::More' => 0,
     },
+    requires => {
+	'Parse::RecDescent' => 0,
+	'Carp' => 0,
+ 	},
     add_to_cleanup      => [ 'Text-Lorem-More-*' ],
 );
 
