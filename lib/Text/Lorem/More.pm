@@ -9,11 +9,38 @@ Text::Lorem::More - Generate formatted nonsense using random Latin words.
 
 =head1 VERSION
 
-Version 0.11
+Version 0.12
+
+=head1 SYNOPSIS
+
+Generate formatted nonsense using random Latin words.
+
+	use Text::Lorem::More;
+
+	my $lorem = Text::Lorem::More->new();
+	
+	# Greet a friend
+	print "Hello, ", $lorem->fullname, "\n";
+
+	# You could also ...
+	print $lorem->process("Hello, +fullname\n");
+
+	... or you can use the singleton:
+
+	use Text::Lorem::More qw(lorem);
+
+	# Generate a random latin word
+	my $latinwordoftheday = lorem->word;
+
+	# Produce paragaphs in the Text::Lorem compatible manner
+	my $content = lorem->paragraphs(3);
+
+	# Print 4 paragraphs, each separated by a single newline and tab:
+	print "\t", scalar lorem->paragraph(4, "\n\t");
 
 =cut
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 use Text::Lorem::More::Source;
 use Carp;
@@ -30,15 +57,87 @@ identifier: /[A-Za-z0-9_]+/ { push @content, $item[1] }
 text: m/[^\+]+/ { push @content, \$item[1] }
 _END_
 
-our %GENERATOR = (
-	name => sub { [ sub { ucfirst lc $_ }, "+word" ] },
+=head1 GENERATORS 
 
+To use a generator, call the method with the same name as the generator, 
+To use the name generator, for example:
+
+	my $name = $lorem->name;
+
+Alternatively, you can use the C<generate> or C<process> functions.
+To use the hostname generator, for example:
+
+	my $hostname = $lorem->hostname;
+
+	# This will do the same thing ...
+	my $otherhostname = $lorem->generate("+hostname");
+
+=head2 name firstname lastname
+
+A random latin word with the first letter capitalized
+
+	Repellat
+	Sed
+	Ipsum
+
+=head2 fullname
+
+A firstname and lastname separated by a space
+
+	Lorem Dicta
+
+=head2 username
+
+A random latin word
+
+=head2 word
+
+A random latin word
+
+	dicta
+	sed
+	repellat
+
+=head2 description
+
+=head2 sentence
+
+Between 4 and 9 words, with the first letter of the first word capitalized and a period following
+the last word.
+
+=head2 paragraph
+
+=head2 words
+
+=head2 sentences
+
+=head2 paragraphs
+
+=head2 email mail
+
+=head2 path
+
+=head2 httpurl
+
+=head2 mailto
+
+=head2 tld topleveldomain
+
+=head2 domain domainname
+
+=head2 host hostname
+
+=cut
+
+our %GENERATOR = (
+
+	name => sub { [ sub { ucfirst lc $_ }, "+word" ] },
 	firstname => "name",
 	lastname => "name",
 
-	username => "word",
+	fullname => sub { ["+firstname +lastname"] },
 
-	fullname => sub { ["+name +name"] },
+	username => "word",
 
 	word => [ grep { length $_ } map { s/\W//g; lc } split m/\s/, <<_END_ ],
 alias consequatur aut perferendis sit voluptatem accusantium doloremque aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis Nemo enim ipsam voluptatem quia voluptas sit suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae  et iusto odio dignissimos ducimus qui blanditiis praesentium laudantium, totam rem voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, Sed ut perspiciatis unde omnis iste natus error similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo porro quisquam est, qui minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores doloribus asperiores repellat.
@@ -81,13 +180,6 @@ _END_
 		return join("\n\n", @paragraph);
 	},
 
-	host => "hostname",
-
-	hostname => [ map { [ $_ ] } split m/\n/, <<_END_ ],
-+word.+domainname
-+domainname
-_END_
-
 	email => [ map { [ $_ ] } split m/\n/, <<_END_ ],
 +word\@+hostname
 +word\@+domainname
@@ -119,37 +211,18 @@ _END_
 	domainname => [ map { [ $_ ] } split m/\n/, <<_END_ ],
 example.+tld
 _END_
+
+	host => "hostname",
+
+	hostname => [ map { [ $_ ] } split m/\n/, <<_END_ ],
++word.+domainname
++domainname
+_END_
+
 );
 
 use constant MAXIMUM_RECURSION => 2 ** 12;
 use constant GENERATOR => \%GENERATOR;
-
-=head1 SYNOPSIS
-
-Generate formatted nonsense using random Latin words.
-
-	use Text::Lorem::More;
-
-	my $lorem = Text::Lorem::More->new();
-	
-	# Greet a friend
-	print "Hello, ", $lorem->fullname, "\n";
-
-	# You could also ...
-	print $lorem->process("Hello, +fullname\n");
-
-	... or you can use the singleton:
-
-	use Text::Lorem::More qw(lorem);
-
-	# Generate a random latin word
-	my $latinwordoftheday = lorem->word;
-
-	# Produce paragaphs in the Text::Lorem compatible manner
-	my $content = lorem->paragraphs(3);
-
-	# Print 4 paragraphs, each separated by a single newline and tab:
-	print "\t", scalar lorem->paragraph(4, "\n\t");
 
 =head1 EXPORT
 

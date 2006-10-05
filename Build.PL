@@ -15,6 +15,7 @@ my $builder = Module::Build->new(
 	'Carp' => 0,
  	},
     add_to_cleanup      => [ 'Text-Lorem-More-*' ],
+    create_makefile_pl => 'traditional',
 );
 
 $builder->create_build_script();
