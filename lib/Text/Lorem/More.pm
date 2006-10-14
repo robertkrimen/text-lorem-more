@@ -72,9 +72,44 @@ To use the hostname generator, for example:
 	# This will do the same thing ...
 	my $otherhostname = $lorem->generate("+hostname");
 
-=head2 name firstname lastname
+=head2 word
 
-A random latin word with the first letter capitalized
+Generates random latin word.
+
+	dicta
+	sed
+	repellat
+
+=head2 sentence
+
+Generates between 4 and 9 words, with the first letter of the first word capitalized and a period following
+the last word.
+
+=head2 paragraph
+
+Generates between 3 and 6 sentences, 
+
+=head2 words $count
+
+A Text::Lorem compatible words generator.
+Will generate $count words joined by " ".
+
+=head2 sentences $count
+
+A Text::Lorem compatible sentences generator.
+Will generate $count sentences joined by " ".
+Each sentence contains between 4 and 9 words and ends with a period.
+B<Passing in 0 for count will still produce a single period!>
+
+=head2 paragraphs $count
+
+A Text::Lorem compatible sentences generator.
+Will generate $count paragraphs joined by "\n\n".
+Each paragraph contains between 3 and 6 sentences.
+
+=head2 name / firstname / lastname
+
+Generates a random latin word with the first letter capitalized
 
 	Repellat
 	Sed
@@ -82,50 +117,50 @@ A random latin word with the first letter capitalized
 
 =head2 fullname
 
-A firstname and lastname separated by a space
+Generates a firstname and lastname separated by a space
 
 	Lorem Dicta
 
 =head2 username
 
-A random latin word
+Generates a random latin word
 
-=head2 word
+=head2 title
 
-A random latin word
-
-	dicta
-	sed
-	repellat
+Generates between 1 and 3 words with the first letter of the first word capitalized
 
 =head2 description
 
-=head2 sentence
+Generates between 1 and 3 sentences.
 
-Between 4 and 9 words, with the first letter of the first word capitalized and a period following
-the last word.
+=head2 tld / topleveldomain
 
-=head2 paragraph
+Generates a top level domain.
+Currently, this will either be "com", "org", or "net".
 
-=head2 words
+=head2 domain / domainname
 
-=head2 sentences
+Generates a domainname.
+Currently, this will attach "example" to a tld generator result. 
 
-=head2 paragraphs
+	example.com
+	example.net
 
-=head2 email mail
+=head2 host / hostname
+
+Generates a hostname.
+Currently, this will either return a plain domainname, as above, or attach a latin word to a domainname result.
+
+	et.example.com
+	example.org
+
+=head2 email / mail
 
 =head2 path
 
 =head2 httpurl
 
 =head2 mailto
-
-=head2 tld topleveldomain
-
-=head2 domain domainname
-
-=head2 host hostname
 
 =cut
 
@@ -145,7 +180,7 @@ _END_
 
 	title => sub { [ sub { ucfirst($_) },  "+word", 1 + int rand 3 ] },
 
-	description => sub { [ "+sentence", 2 + int rand 3 ] },
+	description => sub { [ "+sentence", 1 + int rand 3 ] },
 
 	sentence => sub { [ sub { ucfirst($_) . "." },  "+word", 4 + int rand 6 ] },
 
