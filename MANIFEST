@@ -1,9 +1,8 @@
-Build.PL
 Makefile.PL
 Changes
 lib/Text/Lorem/More.pm
 lib/Text/Lorem/More/Source.pm
-MANIFEST			This list of files
+MANIFEST
 META.yml
 README
 t/00-load.t
@@ -13,3 +12,17 @@ t/03-singleton.t
 t/04-brace.t
 t/05-escape.t
 t/06-bug.t
+t/release/boilerplate.t
+t/release/pod-coverage.t
+t/release/pod.t
+inc/Module/AutoInstall.pm
+inc/Module/Install.pm
+inc/Module/Install/AutoInstall.pm
+inc/Module/Install/Base.pm
+inc/Module/Install/Can.pm
+inc/Module/Install/Fetch.pm
+inc/Module/Install/Include.pm
+inc/Module/Install/Makefile.pm
+inc/Module/Install/Metadata.pm
+inc/Module/Install/Win32.pm
+inc/Module/Install/WriteAll.pm

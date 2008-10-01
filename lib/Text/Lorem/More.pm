@@ -523,12 +523,23 @@ Robert Krimen, C<< <robertkrimen at gmail.com> >>
 
 =head1 SEE ALSO
 
-L<Text::Lorem> and L<WWW::Lipsum> and L<http://lipsum.com/>
+L<Text::Lorem>
+
+L<WWW::Lipsum>
+
+L<http://lipsum.com/>
+
+=head1 SOURCE
+
+You can contribute or fork this project via GitHub:
+
+L<http://github.com/robertkrimen/text-lorem-more/tree/master>
+
+    git clone git://github.com/robertkrimen/text-lorem-more.git Text-Lorem-More
 
 =head1 ACKNOWLEDGEMENTS
 
-Thanks to Adeola Awoyemi for writing L<Text::Lorem> which was the inspiration
-behind this module.
+Thanks to Adeola Awoyemi for writing L<Text::Lorem>
 
 =head1 COPYRIGHT & LICENSE
 
