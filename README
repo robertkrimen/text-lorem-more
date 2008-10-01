@@ -3,14 +3,14 @@ NAME
     words.
 
 VERSION
-    Version 0.12
+    Version 0.13
 
 SYNOPSIS
     Generate formatted nonsense using random Latin words.
 
             use Text::Lorem::More;
 
-            my $lorem = Text::Lorem::More->new();
+            my $lorem = Text::Lorem::More->new;
         
             # Greet a friend
             print "Hello, ", $lorem->fullname, "\n";

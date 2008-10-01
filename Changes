@@ -1,6 +1,7 @@
 0.13 Wednesday October 01 11:44:03 PDT 2008:
     - Conversion from Build.PL to Makefile.PL (Module::Install)
     - Move from svn to git (github)
+    - Fix for RT39738 (http://rt.cpan.org/Ticket/Display.html?id=39738)
 0.12 2006-10-3
     + More documentation.
 0.11 2006-10-2
